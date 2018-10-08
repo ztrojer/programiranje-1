@@ -25,7 +25,13 @@ medved. Zvrhano zibelko sladkih hrušk mi je prinesel za en sam izdrt trn"."""
 # >>> find_words(test_text, 'de')
 # {'izdere', 'debel', 'oddide', 'začudeno'}
 ###############################################################################
-
+def find_words(niz, podniz):
+    import re
+    mnozica = set()
+    ppodniz = r"\b\w*" + podniz + r"\w*\b"
+    for beseda in re.findall(ppodniz,niz):
+        mnozica.add(beseda)
+    return mnozica
 
 ###############################################################################
 # 2) Sestavite funkcijo [find_prefix], ki vrne množico vseh besed, ki se
