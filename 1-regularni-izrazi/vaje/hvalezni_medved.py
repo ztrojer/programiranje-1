@@ -40,7 +40,13 @@ def find_words(niz, podniz):
 # >>> find_prefix(test_text, 'zi')
 # {'zibala', 'zibel', 'zibelko'}
 ###############################################################################
-
+def find_prefix(niz1, predpona):
+    import re
+    mnozica1 = set()
+    predpona1 = r"\b" + predpona + r"\w*\b"
+    for beseda1 in re.findall(predpona1, niz1):
+        mnozica1.add(beseda1)
+    return mnozica1
 
 ###############################################################################
 # 3) Sestavite funkcijo [find_suffix], ki vrne množico vseh besed, ki se
@@ -49,7 +55,13 @@ def find_words(niz, podniz):
 # >>> find_suffix(test_text, 'la')
 # {'zibala', 'razveselila', 'prestrašila', 'šivala', 'opazila', 'tla'}
 ###############################################################################
-
+def find_suffix(niz2, pripona):
+    import re
+    mnozica2 = set()
+    pripona1 = r"\b\w*" + pripona + r"\b"
+    for beseda2 in re.findall(pripona1, niz2):
+        mnozica2.add(beseda2)
+    return mnozica2
 
 ###############################################################################
 # 4) Sestavite funkcijo [double_letters], ki sprejme niz in vrne množico vseh
@@ -58,3 +70,10 @@ def find_words(niz, podniz):
 # >>> double_letters('A volunteer is worth twenty pressed men.')
 # {'volunteer', 'pressed'}
 ###############################################################################
+def double_letters(niz3):
+    import re
+    mnozica3 = set()
+    dvojno = r"(\b\w+(\w)\2+\w+\b)"
+    for beseda3 in re.findall(dvojno, niz3):
+        mnozica3.add(beseda3)
+    return mnozica3
