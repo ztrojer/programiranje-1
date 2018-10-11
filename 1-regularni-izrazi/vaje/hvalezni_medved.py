@@ -25,14 +25,15 @@ medved. Zvrhano zibelko sladkih hrušk mi je prinesel za en sam izdrt trn"."""
 # >>> find_words(test_text, 'de')
 # {'izdere', 'debel', 'oddide', 'začudeno'}
 ###############################################################################
+
+
 def find_words(niz, podniz):
     import re
     mnozica = set()
     ppodniz = r"\b\w*" + podniz + r"\w*\b"
-    for beseda in re.findall(ppodniz,niz):
+    for beseda in re.findall(ppodniz, niz):
         mnozica.add(beseda)
     return mnozica
-
 ###############################################################################
 # 2) Sestavite funkcijo [find_prefix], ki vrne množico vseh besed, ki se
 #    pojavijo v nizu in imajo dano predpono.
@@ -40,6 +41,8 @@ def find_words(niz, podniz):
 # >>> find_prefix(test_text, 'zi')
 # {'zibala', 'zibel', 'zibelko'}
 ###############################################################################
+
+
 def find_prefix(niz1, predpona):
     import re
     mnozica1 = set()
@@ -47,7 +50,6 @@ def find_prefix(niz1, predpona):
     for beseda1 in re.findall(predpona1, niz1):
         mnozica1.add(beseda1)
     return mnozica1
-
 ###############################################################################
 # 3) Sestavite funkcijo [find_suffix], ki vrne množico vseh besed, ki se
 #    pojavijo v nizu in imajo dano pripono.
@@ -55,6 +57,8 @@ def find_prefix(niz1, predpona):
 # >>> find_suffix(test_text, 'la')
 # {'zibala', 'razveselila', 'prestrašila', 'šivala', 'opazila', 'tla'}
 ###############################################################################
+
+
 def find_suffix(niz2, pripona):
     import re
     mnozica2 = set()
@@ -62,7 +66,6 @@ def find_suffix(niz2, pripona):
     for beseda2 in re.findall(pripona1, niz2):
         mnozica2.add(beseda2)
     return mnozica2
-
 ###############################################################################
 # 4) Sestavite funkcijo [double_letters], ki sprejme niz in vrne množico vseh
 #    besed, ki vsebujejo podvojene črke.
@@ -70,6 +73,8 @@ def find_suffix(niz2, pripona):
 # >>> double_letters('A volunteer is worth twenty pressed men.')
 # {'volunteer', 'pressed'}
 ###############################################################################
+
+
 def double_letters(niz3):
     import re
     mnozica3 = set()
