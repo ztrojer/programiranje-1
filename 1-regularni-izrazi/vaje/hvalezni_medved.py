@@ -26,7 +26,7 @@ medved. Zvrhano zibelko sladkih hrušk mi je prinesel za en sam izdrt trn"."""
 # {'izdere', 'debel', 'oddide', 'začudeno'}
 ###############################################################################
 
-
+ 
 def find_words(niz, podniz):
     import re
     mnozica = set()
