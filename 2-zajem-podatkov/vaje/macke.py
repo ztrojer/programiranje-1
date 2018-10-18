@@ -110,4 +110,4 @@ def write_csv(fieldnames, rows, directory, filename):
 
 
 def write_cat_ads_to_csv(TODO):
-    return TODO
+return TODO
