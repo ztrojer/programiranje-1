@@ -2,37 +2,35 @@ import requests
 import re
 import os
 import csv
+
+
 ###############################################################################
-# Najprej definirajmo nekaj pomožnih orodij za pridobivanje podatkov s spleta.
+# First, let's write some functions to get the data from the web.
 ###############################################################################
 
-# definiratje URL glavne strani bolhe za oglase z mačkami
-cats_frontpage_url = (
-    'http://www.bolha.com/zivali/male-zivali/'
-    'macke/?sort=0&page=1'
-)
-# mapa, v katero bomo shranili podatke
-cat_directory = '2-zajem-podatkov/exercises/data_from_bolha'
-# ime datoteke v katero bomo shranili glavno stran
-frontpage_filename = 'macki.html'
-# ime CSV datoteke v katero bomo shranili podatke
-csv_filename = 'macki.csv'
+# define the URL of the main page of the bolha cats listing
+cats_frontpage_url = 'TODO'
+# the directory to which we save our data
+cat_directory = 'TODO'
+# the filename we use to save the frontpage
+frontpage_filename = 'TODO'
+# the filename for the CSV file for the extracted data
+csv_filename = 'TODO'
 
 
-def download_url_to_string(url):
+def download_url_to_string(TODO):
     '''This function takes a URL as argument and tries to download it
     using requests. Upon success, it returns the page contents as string.'''
     try:
         # some code here that may raise an exception
-        r = requests.get(url)
+        return TODO
         # some more code that won't be run if the exception occured
-    except requests.exceptions.ConnectionError:
+    except 'TODO':
         # some error handling / recovery code here
         # we may just display an informative message and quit
-        print('Napaka!')
-        return None
+        return TODO
     # continue with the non-exceptional code
-    return r.text
+    return TODO
 
 
 def save_string_to_file(text, directory, filename):
@@ -45,79 +43,57 @@ def save_string_to_file(text, directory, filename):
         file_out.write(text)
     return None
 
-# Definirajte funkcijo, ki prenese glavno stran in jo shrani v datoteko.
+# Define a function that downloads the frontpage and saves it to a file.
 
 
-def save_frontpage(url, directory, filename):
+def save_frontpage(TODO):
     '''Save "cats_frontpage_url" to the file
     "cat_directory"/"frontpage_filename"'''
-    text = download_url_to_string(url)
-    return save_string_to_file(text, directory, filename)
+    return TODO
 
 ###############################################################################
-# Po pridobitvi podatkov jih želimo obdelati.
+# Now that we have some data, we can think about processing it.
 ###############################################################################
 
 
 def read_file_to_string(directory, filename):
     '''Return the contents of the file "directory"/"filename" as a string.'''
-    path = os.path.join(directory, filename)
-    with open(path, 'r', encoding='utf-8') as file_in:
-        return file_in.read()
+    path = os.path.join(TODO)
+    with open(path, 'r') as file_in:
+        return TODO
 
-# Definirajte funkcijo, ki sprejme niz, ki predstavlja vsebino spletne strani,
-# in ga razdeli na dele, kjer vsak del predstavlja en oglas. To storite s
-# pomočjo regularnih izrazov, ki označujejo začetek in konec posameznega
-# oglasa. Funkcija naj vrne seznam nizov.
+# Define a function that takes a webpage as a string and splits it into
+# segments such that each segment corresponds to one advertisement. This
+# function will use a regular expression that delimits the beginning and end of
+# each ad. Return the list of strings.
+# Hint: To build this reg-ex, you can use your text editor's regex search
+# functionality.
 
 
-def page_to_ads(webpage):
+def page_to_ads(TODO):
     '''Split "page" to a list of advertisement blocks.'''
-    sample1 = re.compile(
-        r'<div class="coloumn image">'
-    )
-    sample2 = re.compile(
-        r'<div class="clear">&nbsp;</div>'
-    )
-    list = re.split(sample1, webpage)
-    last = list[-1]
-    last = re.split(sample2, last)
-    list[-1] = last[0]
-    return list[1:]
+    return TODO
 
-# Definirajte funkcijo, ki sprejme niz, ki predstavlja oglas, in izlušči
-# podatke o imenu, ceni in opisu v oglasu.
+# Define a function that takes a string corresponding to the block of one
+# advertisement and extracts from it the following data: Name, price, and
+# the description as displayed on the page.
 
-def get_dict_from_ad_block(block):
+
+def get_dict_from_ad_block(TODO):
     '''Build a dictionary containing the name, description and price
     of an ad block.'''
-    sample = re.compile(
-        r'<h3><a title="(?P<ime>.+?)" href=".*?'
-        r'</a></h3>' r'\n\n' r'\s+(?P<informacije>.*?)\s+<div class=".*?'
-        r'<div class="price">(<span>|)(?P<cena>.*?)(</span>|)</div>.*?'
-        r'<a href="javascript:void\(0\);" data-id="(?P<id>\d+)" title=.*?',
-        re.DOTALL
-    )
-    for expression in sample.finditer(block):
-        dict = expression.groupdict()
-    return dict
+    return TODO
 
-# Definirajte funkcijo, ki sprejme ime in lokacijo datoteke, ki vsebuje
-# besedilo spletne strani, in vrne seznam slovarjev, ki vsebujejo podatke o
-# vseh oglasih strani.
+# Write a function that reads a page from a file and returns the list of
+# dictionaries containing the information for each ad on that page.
 
 
-def ads_from_file(directory, filename):
+def ads_from_file(TODO):
     '''Parse the ads in filename/directory into a dictionary list.'''
-    webpage = read_file_to_string(directory, filename)
-    list_of_ads = page_to_ads(webpage)
-    list_of_dicts = []
-    for i in range(0, len(list_of_ads)):
-        list_of_dicts.append(get_dict_from_ad_block(list_of_ads[i]))
-    return list_of_dicts
+    return TODO
 
 ###############################################################################
-# Obdelane podatke želimo sedaj shraniti.
+# We processed the data, now let's save it for later.
 ###############################################################################
 
 
@@ -127,19 +103,18 @@ def write_csv(fieldnames, rows, directory, filename):
     cell-value.'''
     os.makedirs(directory, exist_ok=True)
     path = os.path.join(directory, filename)
-    with open(path, 'w', encoding='utf-8') as csv_file:
+    with open(path, 'w') as csv_file:
         writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
         writer.writeheader()
         for row in rows:
             writer.writerow(row)
     return None
 
-# Definirajte funkcijo, ki sprejme neprazen seznam slovarjev, ki predstavljajo
-# podatke iz oglasa mačke, in zapiše vse podatke v csv datoteko. Imena za
-# stolpce [fieldnames] pridobite iz slovarjev.
+# Write a function that takes a non-empty list of cat advertisement
+# dictionaries and writes it to a csv file. The [fieldnames] can be read off
+# the dictionary.
 
-def write_cat_ads_to_csv(list_of_dicts_ads, directory, filename):
+
+def write_cat_ads_to_csv(TODO):
     '''Write a CSV file containing one ad from "ads" on each row.'''
-    fieldnames = ['id', 'ime', 'informacije', 'cena']
-    write_csv(fieldnames, list_of_dicts_ads, directory, filename)
-    return None
+return TODO
