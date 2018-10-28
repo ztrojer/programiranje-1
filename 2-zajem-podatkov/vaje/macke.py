@@ -98,6 +98,7 @@ def get_dict_from_ad_block(block):
         r'<a href="javascript:void\(0\);" data-id="(?P<id>\d+)" title=.*?',
         re.DOTALL
     )
+#ta for zanka je brezveze, lahko samo poiscem brez for zanke
     for expression in sample.finditer(block):
         dict = expression.groupdict()
     return dict
