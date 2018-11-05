@@ -7,10 +7,14 @@ import csv
 ###############################################################################
 
 # definiratje URL glavne strani bolhe za oglase z mačkami
+<<<<<<< HEAD
 cats_frontpage_url = (
     'http://www.bolha.com/zivali/male-zivali/'
     'macke/?sort=0&page=1'
 )
+=======
+cats_frontpage_url = 'http://www.bolha.com/zivali/male-zivali/macke/'
+>>>>>>> 6f2c567309c420a908c094a18af2a977ae605a7c
 # mapa, v katero bomo shranili podatke
 cat_directory = '2-zajem-podatkov/vaje'
 # ime datoteke v katero bomo shranili glavno stran
