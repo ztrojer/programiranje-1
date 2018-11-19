@@ -56,6 +56,10 @@
 
  Nato napišite testni primer, ki bi predstavljal "[5; true; false; 7]".
 [*----------------------------------------------------------------------------*)
+type intbool list = 
+  | Empty
+  | Int_val of int * intbool_list
+  | Bool_val of bool * intbool_list
 
 
 
@@ -65,7 +69,20 @@
  oz. [f_bool].
 [*----------------------------------------------------------------------------*)
 
-let rec intbool_map = ()
+let rec map f = 
+
+
+let rec intbool_map (f int : int -> int) (f_bool : bool -> bool) = function
+  | Empty -> Empty
+  | Int_val (i, ib_list) -> Int_val (f_int i, intbool_map f_int f_bool ib_list)
+  | Int_val (b, ib_list) -> Int_val (f_bool i, intbool_map f_int f_bool ib_list)
+
+let rec intbool_map (f int : int -> int) (f_bool : bool -> bool) = function
+| Empty -> Empty
+| Int_val (i, tail) ->
+  let new_i = f_int_i in
+  let new_tail = intbool_map f_int f_bool tail in
+  Int_val (new_i, new_tail)
 
 (*----------------------------------------------------------------------------*]
  Funkcija [intbool_reverse] obrne vrstni red elementov [intbool_list] seznama.
