@@ -4,12 +4,16 @@
 
 (* 1.1) Definirajte funkcijo, ki vzame par in zamenja komponenti para.
    Primer: /obrni (2, 4) = (4, 2)/ *)
- let obrni = failwith "dopolni me"
+ let obrni (x, y) =
+    match x, y with 
+    | x, y -> y, x
 
 (* 1.2) Definirajte funkcijo, ki vzame par p in vrednost x in zamenja drugo
    komponento para p z x.
    Primer: /zamenjaj_drugo (2, 4) 7 = (2, 7)/ *)
- let zamenjaj_drugo = failwith "dopolni me"
+ let zamenjaj_drugo (x, y) p =
+    match x, p with
+    | x, p -> x, p
 
 (* 1.3) Definirajte funkcijo, ki vzame seznam parov in izračuna nov seznam parov,
    ki imajo drugo komponento zamenjano z 42.

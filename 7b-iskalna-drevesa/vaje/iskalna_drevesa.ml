@@ -22,7 +22,10 @@ type 'a tree =
 
 let leaf x = Node(Empty, x, Empty) 
 
-let test_tree = ()
+let test_tree = 
+  let left_t = Node(leaf 0, 2, Empty) in
+  let right_t = Node(leaf 6, 7, leaf 11) in
+  Node(left_t, 5, right_t)
 
 (*----------------------------------------------------------------------------*]
  Funkcija [mirror] vrne prezrcaljeno drevo. Na primeru [test_tree] torej vrne
@@ -38,7 +41,9 @@ let test_tree = ()
  Node (Empty, 2, Node (Empty, 0, Empty)))
 [*----------------------------------------------------------------------------*)
 
-let rec mirror = ()
+let rec mirror = function
+  | Empty -> Empty
+  | Node(lt, x, rt) -> Node(mirror rt, x, mirror lt)
 
 (*----------------------------------------------------------------------------*]
  Funkcija [height] vrne višino oz. globino drevesa, funkcija [size] pa število
@@ -52,7 +57,23 @@ let rec mirror = ()
 
 let rec height = ()
 
-let rec size = ()
+let rec size = function
+  | Empty -> 0
+  | Node(lt, x, rt) -> 1 + size lt + size rt
+
+
+let tl_rec size tree = 
+  let rec slize' acc queue =
+    match queue with
+    | [] -> acc
+    | t :: ts -> (
+      match t with
+      | Empty -> size' (acc + 0) ts
+      | Node(lt, x, rt) -> 
+      let new_acc = acc + 1 in
+      let new_queue = lt :: rt :: ts in
+      size' new_acc new_queue
+    )
 
 (*----------------------------------------------------------------------------*]
  Funkcija [follow directions tree] tipa [direction list -> 'a tree -> 'a option]

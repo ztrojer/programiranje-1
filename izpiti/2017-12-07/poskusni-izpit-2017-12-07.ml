@@ -4,15 +4,23 @@
 
 (* 1.1) Definirajte funkcijo, ki vzame dve celi števili ter vrne njuno vsoto.
    Primer: /sestej 2 3 = 5/ *)
-let sestej = failwith "dopolni me"
+let sestej x = function
+    | 0 -> x
+    | y -> x + y
 
 (* 1.2) Definirajte funkcijo, ki svojemu argumentu prišteje 3.
    Primer: /pristej_tri 10 = 13/ *)
-let pristej_tri = failwith "dopolni me"
+let pristej_tri = function
+    | y -> y + 3
 
 (* 1.3) Definirajte funkcijo, ki vsem elementom seznama prišteje 5.
    Primer: /vsem_pristej_pet [1; 2] = [6; 7]/ *)
-let vsem_pristej_pet = failwith "dopolni me"
+let rec vsem_pristej_pet list =
+ let rec vsem_pristej_pet' acc = function
+    | [] -> acc
+    | x :: xs -> vsem_pristej_pet' ((x + 5) :: acc) xs
+    in
+    vsem_pristej_pet' [] (List.rev list)
 
 (* 1.4) Definirajte funkcijo, ki vrne zadnjo komponento nabora s tremi elementi.
    Primer: /tretji (1, "horse", [None]) = [None]/ *)
