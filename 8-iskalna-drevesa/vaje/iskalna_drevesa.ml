@@ -6,11 +6,9 @@
  poddrevesi. Na tej točki ne predpostavljamo ničesar drugega o obliki dreves.
 [*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*)
 
-type 'a tree =
-  | Empty
-  | Node of 'a tree * 'a * 'a tree
-
-let leaf x = Node(Empty, x, Empty)
+type 'a tree = 
+  | Empty 
+| Node of 'a * 'a tree * 'a tree
 
 (*----------------------------------------------------------------------------*]
  Definirajmo si testni primer za preizkušanje funkcij v nadaljevanju. Testni
@@ -23,10 +21,12 @@ let leaf x = Node(Empty, x, Empty)
       0   6   11
 [*----------------------------------------------------------------------------*)
 
+
+let leaf x = Node (x, Empty, Empty)
 let test_tree = 
-  let left_t = Node(leaf 0, 2, Empty) in
-  let right_t = Node(leaf 6, 7, leaf 11) in
-  Node(left_t, 5, right_t)
+    let left = Node (2, leaf 0 , Empty)  
+    and right = Node (7, leaf 6, leaf 11)
+in Node (5, left, right)
 
 (*----------------------------------------------------------------------------*]
  Funkcija [mirror] vrne prezrcaljeno drevo. Na primeru [test_tree] torej vrne
@@ -43,8 +43,12 @@ let test_tree =
 [*----------------------------------------------------------------------------*)
 
 let rec mirror = function
-  | Empty -> Empty
-  | Node(lt, x, rt) -> Node(mirror rt, x, mirror lt)
+| Empty -> Empty
+| Node (x, left, right) -> 
+let new_left = mirror right in 
+let new_right = mirror left 
+in 
+Node (x, new_left, new_right)
 
 (*----------------------------------------------------------------------------*]
  Funkcija [height] vrne višino oz. globino drevesa, funkcija [size] pa število
@@ -56,69 +60,9 @@ let rec mirror = function
  - : int = 6
 [*----------------------------------------------------------------------------*)
 
-let rec height = ()
-
-let rec size = function
-  | Empty -> 0
-  | Node(lt, x, rt) -> 1 + size lt + size rt
-
-
-(*let tl_rec size tree = 
-  let rec slize' acc queue =
-    match queue with
-    | [] -> acc
-    | t :: ts -> (
-      match t with
-      | Empty -> size' (acc + 0) ts
-      | Node(lt, x, rt) -> 
-      let new_acc = acc + 1 in
-      let new_queue = lt :: rt :: ts in
-      size' new_acc new_queue
-    )
-    in
-    size' 0 [tree]
-    *)
-
-(*----------------------------------------------------------------------------*]
- Funkcija [follow directions tree] tipa [direction list -> 'a tree -> 'a option]
- sprejme seznam navodil za premikanje po drevesu in vrne vozlišče do katerega 
- vodi podana pot. Ker navodila morda ne vodijo do nobenega vozlišča v drevesu
- vrne rezultat kot [option] tip.
- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
- # follow [Right; Left] test_tree;;
- - : int option = Some 6
- # follow [Right; Left; Right; Right] test_tree;;
- - : int option = None
-[*----------------------------------------------------------------------------*)
-
-type direction = Left | Right
-
-let rec follow list drevo =
-    match list with
-  
-    | navodilo :: ostalo when navodilo = Left -> (
-      match drevo with
-      | Node(None, x, None) -> None
-      | Node(lt, x, _) -> 
-      | Node(lt, x, rt) when -> follow ostalo Node(llt, lt, rlt)
-    )
-
-
-
-(*----------------------------------------------------------------------------*]
- Funkcija [prune directions tree] poišče vozlišče v drevesu [t] glede na 
- navodila, ter izbriše poddrevo, ki se začne v izbranem vozlišču.
-
- Opozorilo: Pri uporabi [Some Node(l, x, r)] se OCaml pritoži, saj to razume
-            kot [(Some Node)(l, x, r)], zato pravilno postavite potrebne 
-            oklepaje.
- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
- # prune [Right] test_tree;;
- - : int tree option =
- Some (Node (Node (Node (Empty, 0, Empty), 2, Empty), 5, Empty))
-[*----------------------------------------------------------------------------*)
-
-let rec prune = ()
+let rec size = function  
+| Empty -> 0 
+| Node (x, left, right) -> 1 + size left + size right
 
 (*----------------------------------------------------------------------------*]
  Funkcija [map_tree f tree] preslika drevo v novo drevo, ki vsebuje podatke
@@ -131,6 +75,10 @@ let rec prune = ()
 [*----------------------------------------------------------------------------*)
 
 
+let rec map_tree f = function 
+| Empty -> Empty 
+| Node (x, left, right) -> Node (f x, map_tree f left, map_tree f right) 
+
 (*----------------------------------------------------------------------------*]
  Funkcija [list_of_tree] pretvori drevo v seznam. Vrstni red podatkov v seznamu
  naj bo takšen, da v primeru binarnega iskalnega drevesa vrne urejen seznam.
@@ -139,6 +87,9 @@ let rec prune = ()
  - : int list = [0; 2; 5; 6; 7; 11]
 [*----------------------------------------------------------------------------*)
 
+let rec to_list = function 
+    | Empty -> []
+| Node (x, left, right) -> to_list left @ x :: [] @ to_list right 
 
 (*----------------------------------------------------------------------------*]
  Funkcija [is_bst] preveri ali je drevo binarno iskalno drevo (Binary Search 
@@ -151,10 +102,29 @@ let rec prune = ()
  - : bool = false
 [*----------------------------------------------------------------------------*)
 
+let is_bst tree = 
+  let rec cheat = function 
+  | [] -> true 
+  | [a] -> true
+  | a :: (b :: tail as t) -> if a < b then cheat t 
+  else false 
+  in cheat (to_list tree) 
+  
 
 (*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*]
  V nadaljevanju predpostavljamo, da imajo dvojiška drevesa strukturo BST.
 [*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*)
+
+
+type 'a tree = 
+  | Empty 
+  | Node of 'a * 'a tree * 'a tree
+
+  let leaf x = Node (x, Empty, Empty)
+let test_tree = 
+  let left = Node (2, leaf 0 , Empty)  
+  and right = Node (7, leaf 6, leaf 11)
+in Node (5, left, right)
 
 (*----------------------------------------------------------------------------*]
  Funkcija [insert] v iskalno drevo pravilno vstavi dani element. Funkcija 
@@ -166,6 +136,17 @@ let rec prune = ()
  - : bool = false
 [*----------------------------------------------------------------------------*)
 
+let rec member k = function 
+| Empty -> false 
+| Node (x, left, right) -> if k = x then true 
+else if k < x then member k left 
+else member k right  
+
+let rec insert k = function 
+| Empty -> leaf k 
+| Node (x, left, right) -> if k < x then Node(x, insert k left, right) 
+else if k > x then Node(x, left, insert k right) 
+else failwith "It's already in"
 
 (*----------------------------------------------------------------------------*]
  Funkcija [member2] ne privzame, da je drevo bst.
