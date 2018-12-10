@@ -6,6 +6,11 @@
  poddrevesi. Na tej točki ne predpostavljamo ničesar drugega o obliki dreves.
 [*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*)
 
+type 'a tree =
+  | Empty
+  | Node of 'a tree * 'a * 'a tree
+
+let leaf x = Node(Empty, x, Empty)
 
 (*----------------------------------------------------------------------------*]
  Definirajmo si testni primer za preizkušanje funkcij v nadaljevanju. Testni
@@ -17,8 +22,6 @@
        /   / \
       0   6   11
 [*----------------------------------------------------------------------------*)
-
-let leaf x = Node(Empty, x, Empty) 
 
 let test_tree = 
   let left_t = Node(leaf 0, 2, Empty) in
@@ -60,7 +63,7 @@ let rec size = function
   | Node(lt, x, rt) -> 1 + size lt + size rt
 
 
-let tl_rec size tree = 
+(*let tl_rec size tree = 
   let rec slize' acc queue =
     match queue with
     | [] -> acc
@@ -72,6 +75,9 @@ let tl_rec size tree =
       let new_queue = lt :: rt :: ts in
       size' new_acc new_queue
     )
+    in
+    size' 0 [tree]
+    *)
 
 (*----------------------------------------------------------------------------*]
  Funkcija [follow directions tree] tipa [direction list -> 'a tree -> 'a option]
@@ -87,7 +93,17 @@ let tl_rec size tree =
 
 type direction = Left | Right
 
-let rec follow = ()
+let rec follow list drevo =
+    match list with
+  
+    | navodilo :: ostalo when navodilo = Left -> (
+      match drevo with
+      | Node(None, x, None) -> None
+      | Node(lt, x, _) -> 
+      | Node(lt, x, rt) when -> follow ostalo Node(llt, lt, rlt)
+    )
+
+
 
 (*----------------------------------------------------------------------------*]
  Funkcija [prune directions tree] poišče vozlišče v drevesu [t] glede na 
