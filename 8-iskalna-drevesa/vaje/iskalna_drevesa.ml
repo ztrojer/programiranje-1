@@ -202,22 +202,6 @@ let pred bst =
  Node (Node (Empty, 6, Empty), 11, Empty))
 [*----------------------------------------------------------------------------*)
 
-let rec delete x tree = 
-  match tree with 
-  | Empty -> Empty
-  | Node(Empty, y, Empty) when x = y -> Empty
-  | Node(Empty, y, rt) whem x = y -> rt
-  | Node(lt, y, Empty) when x = y -> lt 
-  | Node(lt, y, rt) when x <> y -> 
-  if x > y then
-    Node(lt, y, delete x rt)
-    else
-    Node(delete x lt, y, rt)
-  | Node(lt, y, rt) -> 
-    match succ tree with 
-    | None -> failwith "problem"
-    | Some z -> Node(lt, z, delete z rt)
-
 let rec delete x = function
 | Empty -> Empty
 | Node (l, y, r) when x > y -> Node (l, y, delete x r)
