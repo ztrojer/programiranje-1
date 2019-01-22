@@ -154,7 +154,7 @@ else member k left
 let rec member2 k = function
  | Empty -> false
  | Node(left, x, right) -> if k = x then true
- else member2 k right or member2 k left
+ else (member2 k right) || (member2 k left)
 
 (*----------------------------------------------------------------------------*]
  Funkcija [succ] vrne naslednjika korena danega drevesa, če obstaja. Za drevo
