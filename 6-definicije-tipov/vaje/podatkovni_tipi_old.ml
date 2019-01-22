@@ -12,14 +12,14 @@ type race = Orc | Hobbit | Human
 *)
 
 
-type school = ()
+type school = Fire | Necrotic |Angelic
 
-
-type spell = ()
+type spell = Firewall | Blaze | Resurrect | Cripple | Renounce | Banish
 
 (* Veščine [skills], ki jih je čarodej osvojil, so seznam vseh urokov,
    ki jih lahko hitro izvede. Definiraj tip `skills'. *)
 
+type skills = spell list
 
 
 (* Čarodeja opišemo z imenom, številom življenskih točk [hp], sposobnost [ability]
@@ -29,12 +29,18 @@ type spell = ()
 type mana = int
 type health = int
 
-type wizard = {name : string; }
+type wizard = {name : string; hp : int; ability : int; race : race; skills : spell list
+ }
 
 
 (* Napiši funkcijo ki vsakemu uroku priredi primerno šolo magije. *)
 let school_of_spell = function
-  () -> ()
+  | Firewall -> Fire
+  | Blaze -> Fire
+  | Resurrect -> Necrotic
+  | Cripple -> Necrotic
+  | Renounce -> Angelic
+  | Banich -> Angelic
 
 (* Glede na tabelo napiši funkcijo, ki uroku priredi količino mane,
    ki jo čarodej potrebuje za izvršitev uroka:

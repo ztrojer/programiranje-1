@@ -1,7 +1,5 @@
 (* zlozi_desno : ('a -> 'b -> 'b) -> 'a list -> 'b -> 'b *)
-let rec zlozi_desno f xs z = match xs with
-  | [] -> z
-  | x :: xs -> f x (zlozi_desno f xs z)
+
 
 let vsota xs = zlozi_desno ( + ) xs 0
 let produkt xs = zlozi_desno ( * ) xs 1

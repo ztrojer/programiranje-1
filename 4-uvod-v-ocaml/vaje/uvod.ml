@@ -186,19 +186,11 @@ let rec max_on_components list1 list2 =
   | x :: xs, y :: ys when y > x -> [y] @ max_on_components xs ys
   | list1, list2 -> list1
 
-(*----------------------------------------------------------------------------*]
- Funkcija [second_largest] vrne drugo največjo vrednost v seznamu. Pri tem se
- ponovitve elementa štejejo kot ena vrednost. Predpostavimo, da ima seznam vsaj
- dve različni vrednosti.
- Namig: Pomagaj si s pomožno funkcijo, ki poišče največjo vrednost v seznamu.
- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
- # second_largest [1; 10; 11; 11; 5; 4; 10];;
- - : int = 10
-[*----------------------------------------------------------------------------*)
 
-let rec second_largest list =
-  let rec largest k = function
-  | [] -> 0
-  | x :: [] -> if k >= x then k else x
-  | x :: xs -> if k >= x then largest k xs else largest x xs
-  largest 0 (remove (largest 0 list) list)
+let second_largest list =
+  let rec largest = function
+    | [] -> failwith "List is too short."
+	  | x :: [] -> x
+	  | x :: xs -> max x (largest xs)
+  in
+largest (delete (largest list) list)

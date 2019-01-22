@@ -10,6 +10,7 @@
  Definirajte tipa [euro] in [dollar], kjer ima vsak od tipov zgolj en
  konstruktor, ki sprejme racionalno število.
  Nato napišite funkciji [euro_to_dollar] in [dollar_to_euro], ki primerno
+ 
  pretvarjata valuti (točne vrednosti pridobite na internetu ali pa si jih
  izmislite).
 

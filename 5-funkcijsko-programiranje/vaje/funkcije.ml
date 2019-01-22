@@ -22,7 +22,6 @@ let rec reverse list =
 [*----------------------------------------------------------------------------*)
 
 let repeat x n =
-<<<<<<< HEAD
  let rec repeat' x n acc = 
   if n <= 0 then
     acc
@@ -32,16 +31,6 @@ let repeat x n =
   in
   repeat' x n []
 
-=======
-  let rec repeat' x n acc =
-    if n <= 0 then
-      acc
-    else
-    let new_acc = x :: acc in
-    repeat' x (n-1) new_acc
-  in
-  repeat' x n []
->>>>>>> c61ecfb59cb7f332d684e12f164675ea835c2f2c
 (*----------------------------------------------------------------------------*]
  Funkcija [range] sprejme število in vrne seznam vseh celih števil od 0 do
  vključno danega števila. Za neprimerne argumente funkcija vrne prazen seznam.
@@ -119,7 +108,6 @@ let rec map_tlrec f list =
  - : int list = [0; 1; 2; 5; 6; 7]
 [*----------------------------------------------------------------------------*)
 
-<<<<<<< HEAD
 let mapi f list =
   let rec mapi_aux list i =
     match list with
@@ -127,11 +115,6 @@ let mapi f list =
     | x :: xs -> (f i x) :: (mapi_aux xs (i + 1))
   in
 mapi_aux list 0
-=======
-let rec mapi i f = function
-  | [] -> []
-  | x :: xs -> let r = f i x in r :: mapi (i + 1) f xs
->>>>>>> c61ecfb59cb7f332d684e12f164675ea835c2f2c
 
 let mapi f xs = mapi 0 f xs
 (*----------------------------------------------------------------------------*]
